@@ -17,7 +17,7 @@ variable (u v w : Prop) [Decidable u] [Decidable v] [Decidable w]
 #check_simp decide (u → False) ~> !decide u
 #check_simp decide (¬u) ~> !decide u
 #check_simp (b = true) ≠ (c = false) ~> b = c
-#check_simp (b != c) != (false != d) ~> ¬(b != c) = d
+#check_simp (b != c) != (false != d) ~> (b != c) != d
 #check_simp (b == false) ≠ (c != d) ~> b = (c != d)
 #check_simp (b = true) ≠ (c = false) ~> b = c
 #check_simp ¬b = !c ~> b = c
@@ -364,7 +364,7 @@ variable [Decidable u]
 #check_simp ¬(u = v) ~> ¬(u ↔ v)
 #check_simp ¬(u ↔ v) !~>
 #check_simp ¬(b ↔ c) ~> ¬(b = c)
-#check_simp b ≠ c    !~> ¬(b = c)
+#check_simp b ≠ c    ~> b ≠ c
 #check_simp ¬(b = c) !~>
 
 /- # bne -/
@@ -376,7 +376,7 @@ variable [Decidable u]
 #check_simp (b != true) ~> !b
 #check_simp (b != false) ~> b
 #check_simp (b != b) ~> false
-#check_simp (!b != c) ~> !(b != c)
+#check_simp ((!b) != c) ~> !(b != c)
 #check_simp (b != !c) ~> !(b != c)
 #check_simp (b != (b != c)) ~> c
 #check_simp ((b != c) != c) ~> b
@@ -390,6 +390,8 @@ variable [Decidable u]
 #check_simp c = (b != c) ~> b = false
 #check_simp (b != c) = !b ~> c = true
 #check_simp (b != c) = !c ~> b = true
+#check_simp b = !(b != c) ~> c = true
+#check_simp c = !(b != c) ~> b = true
 #check_simp ((u:Bool) != v : Bool) !~>
 #check_simp ((u:Bool) != v : Prop) ~> ¬(u ↔ v)
 
@@ -416,6 +418,8 @@ variable [Decidable u]
 #check_simp c = (b ^^ c) ~> b = false
 #check_simp (b ^^ c) = !b ~> c = true
 #check_simp (b ^^ c) = !c ~> b = true
+#check_simp b = !(b ^^ c) ~> c = true
+#check_simp c = !(b ^^ c) ~> b = true
 #check_simp ((u:Bool) ^^ v : Bool) !~>
 #check_simp ((u:Bool) ^^ v : Prop) ~> ¬(u ↔ v)
 

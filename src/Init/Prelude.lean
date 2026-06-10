@@ -1163,7 +1163,6 @@ only the selected branch is evaluated.
   | true  => x
   | false => y
 
-
 /--
 The dependent conditional function, in which each branch is provided with a local assumption about
 the condition's value. This allows the value to be used in proofs as well as for control flow.
@@ -1225,17 +1224,14 @@ propositional connective is `Not : Prop → Prop`.
 /--
 Boolean “exclusive or”. `xor x y` can be written `x ^^ y`.
 
-`x ^^ y` is `true` when precisely one of `x` or `y` is `true`. Unlike `and` and `or`, it does not
-have short-circuiting behavior, because one argument's value never determines the final value. Also
-unlike `and` and `or`, there is no commonly-used corresponding propositional connective.
-
-Examples:
- * `false ^^ false = false`
- * `true ^^ false = true`
- * `false ^^ true = true`
- * `true ^^ true = false`
+`x ^^ y` is `true` when precisely one of `x` or `y` is `true`. Unlike `and` and `or`, `xor` does not
+short-circuit — the result always depends on both arguments — and it has no commonly-used
+corresponding propositional connective.
 -/
-def Bool.xor : Bool → Bool → Bool | false => id | true => Bool.not
+@[inline] def Bool.xor (x y : Bool) : Bool :=
+  match x with
+  | false => y
+  | true  => y.not
 
 export Bool (or and not xor)
 
