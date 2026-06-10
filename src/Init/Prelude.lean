@@ -1222,7 +1222,22 @@ propositional connective is `Not : Prop → Prop`.
   | true  => false
   | false => true
 
-export Bool (or and not)
+/--
+Boolean “exclusive or”. `xor x y` can be written `x ^^ y`.
+
+`x ^^ y` is `true` when precisely one of `x` or `y` is `true`. Unlike `and` and `or`, it does not
+have short-circuiting behavior, because one argument's value never determines the final value. Also
+unlike `and` and `or`, there is no commonly-used corresponding propositional connective.
+
+Examples:
+ * `false ^^ false = false`
+ * `true ^^ false = true`
+ * `false ^^ true = true`
+ * `true ^^ true = false`
+-/
+def Bool.xor : Bool → Bool → Bool | false => id | true => Bool.not
+
+export Bool (or and not xor)
 
 set_option genCtorIdx false in
 /--
